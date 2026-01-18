@@ -13,7 +13,9 @@ function App() {
 
   useEffect(() => {
     // Basic check for API key availability via env or injected global
-    if (!process.env.API_KEY) {
+    const hasEnvKey = typeof process !== 'undefined' && process.env && process.env.API_KEY;
+    
+    if (!hasEnvKey) {
         if (window.aistudio && window.aistudio.hasSelectedApiKey) {
            window.aistudio.hasSelectedApiKey().then(has => {
                if (!has) setApiKeyMissing(true);
